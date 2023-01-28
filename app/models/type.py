@@ -14,5 +14,5 @@ class Type(db.Model):
             'id': self.id,
             'description': self.description,
             'number': self.number,
-            'transactions': [transaction.to_dict() for trasaction in self.transactions]
+            'transactions_count': len(self.transactions)
         }

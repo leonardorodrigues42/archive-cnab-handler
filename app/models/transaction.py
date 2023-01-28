@@ -20,6 +20,6 @@ class Transaction(db.Model):
             'value': self.value,
             'recipient': self.recipient.to_dict(),
             'card': self.card,
-            'hour': self.hour
+            'hour': self.hour.strftime("%H:%M:%S")
         }
     

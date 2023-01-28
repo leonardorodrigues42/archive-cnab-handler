@@ -1,4 +1,5 @@
 from flask import Flask
+from flask_migrate import Migrate
 from .database import db
 from .models.type import Type
 from . import routes
@@ -8,7 +9,7 @@ def popular_database(app):
     with app.app_context():    
         stored_data = db.session.query(Type).options(db.joinedload(Type.transactions)).all()
         if len(stored_data):
-            print([row.to_dict() for row in stored_data])
+            None
         else:
             data = [
                 (1,	"Débito", "Entrada"),
@@ -29,12 +30,19 @@ def popular_database(app):
             db.session.commit()
 
 def create_app():
-    app = Flask(__name__)
+    app = Flask(__name__, static_folder='templates')
+    app.config['TEMPLATES_FOLDER'] = 'templates'
+    app.config['JSON_AS_ASCII'] = False
+    
     database.init_app(app)
+    
     with app.app_context():
         db.create_all()
-    routes.init_app(app)
     
+    migrate = Migrate(app, db)
+    
+    routes.init_app(app)
+       
     popular_database(app)
     
     return app
