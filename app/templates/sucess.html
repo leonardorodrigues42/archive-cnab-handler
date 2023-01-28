@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" media="screen" href="{{ url_for('static', filename='upload.css') }}" />
+    <title>Upload File</title>
+</head>
+<div class="container">
+      <div class="form-header">
+        <h1>Upload de Arquivo</h1>
+      </div>
+      <div class="form-body">
+        <input type="file" name="file_upload" class="form-input" id="file-input">
+        <label for="file-input" class="form-label">Selecione um arquivo</label>
+        <button type="submit" class="form-submit">Enviar</button>
+      </div>
+  </div>
+</html>
