@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, request, render_template
+from flask import request, render_template, redirect, url_for, jsonify
 from .process_controller import ProcessController
 from .utils import allowed_file
 from .database import db
@@ -33,23 +33,28 @@ def init_app(app):
             for line in lines:
                 line  = line.decode()
                 if line:
-                    transaction_obj = ProcessController(db, line).process_transaction()                                    
-                    transactions.append(transaction_obj.to_dict())
-            return jsonify(transactions), 201
+                    transaction_obj = ProcessController(db, line).process_transaction()
+            
+            return redirect("/sucess")
 
         return 'Invalid file type'
     
-
+    
+    @app.route("/sucess")
+    def sucess():
+        if not request.referrer or not request.referrer.endswith("/upload"):
+            return "Pagina restrita!"
+                
+        return render_template("sucess.html")
+    
     @app.route("/transactions")
     def transactions_list():
-        transactions = ProcessController.transactions_by_recipient(db)    
+        transactions_by_recipient = ProcessController.transactions_by_recipient(db)
 
-        return jsonify(transactions), 201
+        return render_template("transactions.html", transactions=transactions_by_recipient)
     
     
     @app.get('/')
     def home():
-        tipos = {"message": "funfou aqui"}
-
-        return tipos, 200
+        return redirect("/upload")
     

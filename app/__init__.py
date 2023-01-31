@@ -30,7 +30,7 @@ def popular_database(app):
             db.session.commit()
 
 def create_app():
-    app = Flask(__name__, static_folder='templates')
+    app = Flask(__name__)
     app.config['TEMPLATES_FOLDER'] = 'templates'
     app.config['JSON_AS_ASCII'] = False
     

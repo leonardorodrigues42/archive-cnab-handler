@@ -72,7 +72,7 @@ class ProcessController():
             transactions = []
             balance = recipient.balance()
             for transaction in recipient.transactions:
-                transactions.append(transaction.to_dict())
+                transactions.append(transaction)
             
             filtered_transactions[recipient.name] = {"transactions": transactions, **recipient.balance()}
             

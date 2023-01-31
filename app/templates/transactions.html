@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <link rel="icon" href="../static/favicon.ico" type="image/x-icon">
+    <style>
+        .table-responsive{
+            max-height: calc(100vh - 200px);
+            overflow-y: auto;
+        }
+    </style>
+    <title>Upload File</title>
+</head>
+    <body class="container d-flex flex-column align-items-center justify-content-center" style="padding: 20px 0; height: 120vh; box-sizing: border-box; overflow: ">
+        <button type="button" onclick="window.location.href= '/'" class="btn btn-primary" style="margin: 30px;">Fazer upload</button>
+        <div class="accordion" id="accordionExample" style="min-width: 577px">
+            {% for key, transactions_list in transactions.items() %}
+            <div class="accordion-item {% if loop.first %}collapsed{% endif %}">
+            <h2 class="accordion-header accordion-header-collapsed" id="heading{{ loop.index }}">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ loop.index }}" aria-expanded="false" aria-controls="collapse{{ loop.index }}">
+                {{ key }}
+                </button>
+            </h2>
+            <div id="collapse{{ loop.index }}" class="accordion-collapse collapse {% if loop.first %}show{% endif %}"  aria-labelledby="heading{{ loop.index }}" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <tr>
+                                <th>ID</th>
+                                <th>Tipo</th>
+                                <th>Data</th>
+                                <th>Hora</th>
+                                <th>Beneficiário</th>
+                                <th>Valor</th>
+                            </tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td><strong>Total:</strong></td>
+                            <td>{{ transactions_list["balance"] }}</td>
+                            {% for transaction in transactions_list["transactions"] %}
+                            <tr>
+                                <td>{{ transaction.id}}</td>
+                                <td>{{ transaction.type.description }}</td>
+                                <td>{{ transaction.date }}</td>
+                                <td>{{ transaction.hour }}</td>
+                                <td>{{ transaction.recipient.name }}</td>
+                                <td><p> R$ {{ "+" if transaction.type.nature == "Entrada" else "-" }} {{transaction.value }} </p></td>
+                            </tr>
+                            {% endfor %}
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+        <div>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+    </body>
+</html>

@@ -1,17 +1,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <link rel="stylesheet" type="text/css" media="screen" href="{{ url_for('static', filename='upload.css') }}" />
-    <title>Upload File</title>
+    <link rel="stylesheet" type="text/css" media="screen" href="{{ url_for('static', filename='bootstrap.css') }}" />
+    <link rel="icon" href="../static/favicon.ico" type="image/x-icon">
+    <title>Sucess</title>
 </head>
-<div class="container">
-      <div class="form-header">
-        <h1>Upload de Arquivo</h1>
-      </div>
-      <div class="form-body">
-        <input type="file" name="file_upload" class="form-input" id="file-input">
-        <label for="file-input" class="form-label">Selecione um arquivo</label>
-        <button type="submit" class="form-submit">Enviar</button>
-      </div>
-  </div>
+  <body class="container d-flex flex-column align-items-center justify-content-center" style="height: 100vh">
+    <h2>Documento Processado<h2>
+    <button type="button" onclick="window.location.href= '/'" class="btn btn-primary">Upload</button>
+    <button type="button" onclick="window.location.href= '/transactions'" class="btn btn-primary">Transações</button>
+  </body>
 </html>
